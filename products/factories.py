@@ -1,10 +1,21 @@
-# coding=utf-8
 import random
 import factory
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-
 from .models import Tag
+
+
+TAGS = [
+        'Mobile phones', 'PC technic',
+        'Technic for home', 'Technic for garage',
+        'Technic for kitchen'
+    ]
+
+PRODUCTS = [
+        'Apple iPhone SE', 'Apple MacBook PRO 2015',
+        'icebox Samsung', 'Bosch ‎HD19-2',
+        'Home cleaner Zanussi'
+    ]
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -19,11 +30,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class TagsFactory(factory.DjangoModelFactory):
-    title = factory.Iterator([
-        'Mobile phones', 'PC technic',
-        'Technic for home', 'Technic for garage',
-        'Technic for kitchen'
-    ])
+    title = factory.Iterator(TAGS)
     slug = factory.LazyAttribute(lambda obj: slugify(obj.title))
 
     class Meta:
@@ -31,11 +38,7 @@ class TagsFactory(factory.DjangoModelFactory):
 
 
 class ProductsFactory(factory.DjangoModelFactory):
-    title = factory.Iterator([
-        'Apple iPhone SE', 'Apple MacBook PRO 2015',
-        'icebox Samsung', 'Bosch ‎HD19-2',
-        'Home cleaner Zanussi'
-    ])
+    title = factory.Iterator(PRODUCTS)
     slug = factory.LazyAttribute(lambda obj: slugify(obj.title))
     cost = factory.Faker('pyint')
     is_active = True

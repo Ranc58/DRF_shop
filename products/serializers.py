@@ -22,8 +22,7 @@ class TagSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     tags = serializers.SlugRelatedField(
         many=True, slug_field='slug',
-        read_only=False,
-        queryset=Tag.objects.all()
+        read_only=False, queryset=Tag.objects.all()
     )
     added_by = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
